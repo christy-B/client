@@ -6,6 +6,8 @@ import { format } from 'date-fns'
 
 const GetUser = () => {
   const [users, setUsers] = useState([]);
+  const [msg, setMsg] = useState();
+  const [isError, setIsError] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -28,17 +30,29 @@ const GetUser = () => {
         .then((response) => {
           // Mise à jour de l'état après suppression
           setUsers(users.filter(user => user.id !== userId));
+          setMsg(response.data.message);
+          setIsError(false);
           console.log(response.data.message);
         })
         .catch((error) => {
-          console.error(error.response.data.message);
+            setIsError(true);
+            setMsg(error.response.data.message);
+            console.error(error.response.data.message);
         });
     }
+  };
+
+  // Fonction pour actualiser la page
+  const handleReload = () => {
+    window.location.reload();
   };
 
   return (
     <div>
       <strong><p>Liste des utilisateurs</p></strong>
+      
+      {/* Bouton pour actualiser la page */}
+      <button onClick={handleReload}>Actualiser</button>
 
       {/* Bouton pour ajouter un nouvel utilisateur */}
       <Link to="/create">
@@ -46,7 +60,13 @@ const GetUser = () => {
           Ajouter un utilisateur
         </button>
       </Link>
-
+      
+      {/* Affichage du message (succès ou erreur) */}
+      {msg && (
+        <div style={{ color: isError ? "red" : "green", fontWeight: "bold", marginBottom: "10px" }}>
+          {msg}
+        </div>
+      )}
       <table border="1">
         <thead>
           <tr>

@@ -6,23 +6,27 @@ const CreateUser = () => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [mesg, setMsg] = useState();
+  const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrorMessage("");
+    setMsg(null);
 
     axios.post(`${API_URL}`, { firstname, lastname, email })
       .then((response) => {
-        console.log(response.data.message);
+        setMsg(response.data.message);
+        setIsError(false);
       })
       .catch((error) => {
+        setIsError(true);
         if (error.response.data.message) {
-            console.log(error.response.data.data)
+            setMsg(error.response.data.message);
         } else {
-            console.log(error.response.data.errors)
+            setMsg(error.response.data.errors);
+
         }
       });
   };
@@ -31,6 +35,16 @@ const CreateUser = () => {
     <div>
       <h2>Ajouter un utilisateur</h2>
 
+      {/* Affichage du message */}
+      {mesg && (
+        <div style={{ color: isError ? "red" : "green", fontWeight: "bold" }}>
+          {Array.isArray(mesg) ? (
+            <ul>{mesg.map((err, index) => <li key={index}>{err}</li>)}</ul>
+          ) : (
+            <p>{mesg}</p>
+          )}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <label>Prénom :</label>
         <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} required />

@@ -10,7 +10,8 @@ const EditUser = () => {
     lastname: user.lastname,
     email: user.email,
   });
-  const [mesg, setMsg] = useState("")
+  const [mesg, setMsg] = useState()
+  const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL;
 
@@ -32,20 +33,35 @@ const EditUser = () => {
       .then((response) => {
         console.log(response.data.message);
         setMsg(response.data.message)
-        // Rediriger vers la liste des utilisateurs après modification
-        //navigate('/');
+        setIsError(false);
       })
       .catch((error) => {
+        setIsError(true);
         if (error.response.data.message) {
             setMsg(error.response.data.message)
+        }else{
+            console.error(error.response.data.errors);
+            setMsg(error.response.data.errors)
         }
-        console.error(error.response.data.errors);
+        
       });
   };
 
   return (
     <div>
       <h3>Modifier l'utilisateur</h3>
+      
+      {/* Affichage du message */}
+      {mesg && (
+        <div style={{ color: isError ? "red" : "green", fontWeight: "bold" }}>
+          {Array.isArray(mesg) ? (
+            <ul>{mesg.map((err, index) => <li key={index}>{err}</li>)}</ul>
+          ) : (
+            <p>{mesg}</p>
+          )}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <label>Prénom</label>
         <input
