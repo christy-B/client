@@ -38,7 +38,15 @@ const GetUser = () => {
 
   return (
     <div>
-      <h2>Liste des utilisateurs</h2>
+      <strong><p>Liste des utilisateurs</p></strong>
+
+      {/* Bouton pour ajouter un nouvel utilisateur */}
+      <Link to="/create">
+        <button>
+          Ajouter un utilisateur
+        </button>
+      </Link>
+
       <table border="1">
         <thead>
           <tr>
@@ -67,6 +75,7 @@ const GetUser = () => {
           ))}
         </tbody>
       </table>
+
     </div>
   );
 };

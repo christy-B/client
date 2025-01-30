@@ -73,6 +73,8 @@ const EditUser = () => {
         <br />
         <button type="submit">Enregistrer les modifications</button>
       </form>
+
+      <div><button onClick={() => navigate('/')}>Retour</button></div>
     </div>
   );
 };
