@@ -55,11 +55,11 @@ const CreateUser = () => {
         <label>Email :</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <button type="submit">
+        <button type="submit" className='btn-green'>
           Ajouter
         </button>
       </form>
-      <div><button onClick={() => navigate('/')}>Retour</button></div>
+      <div><button onClick={() => navigate('/')} className='btn-red'>Retour</button></div>
       
     </div>
   );

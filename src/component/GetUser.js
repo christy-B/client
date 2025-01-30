@@ -32,12 +32,10 @@ const GetUser = () => {
           setUsers(users.filter(user => user.id !== userId));
           setMsg(response.data.message);
           setIsError(false);
-          console.log(response.data.message);
         })
         .catch((error) => {
             setIsError(true);
             setMsg(error.response.data.message);
-            console.error(error.response.data.message);
         });
     }
   };
@@ -49,14 +47,42 @@ const GetUser = () => {
 
   return (
     <div>
-      <strong><p>Liste des utilisateurs</p></strong>
-      
+      <div className='table-container'>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date de création</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {users.map((user) => (
+                <tr key={user.id}>
+                <td>{user.firstname}</td>
+                <td>{user.lastname}</td>
+                <td>{user.email}</td>
+                <td>{format(new Date(user.createdAt), 'dd/MM/yyyy HH:mm:ss')}</td>
+                <td>
+                    {/* Passer toutes les informations via state */}
+                    <Link to={`/edit/${user.id}`} state={user}>
+                    <button className='btn-orange'>Modifier</button>
+                    </Link>
+                    <button onClick={() => handleDelete(user.id)} className='btn-red'>Supprimer</button>
+                </td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+      </div>
       {/* Bouton pour actualiser la page */}
-      <button onClick={handleReload}>Actualiser</button>
+      <button onClick={handleReload} className='btn-green'>Actualiser</button>
 
       {/* Bouton pour ajouter un nouvel utilisateur */}
       <Link to="/create">
-        <button>
+        <button className='btn-blue'>
           Ajouter un utilisateur
         </button>
       </Link>
@@ -67,35 +93,6 @@ const GetUser = () => {
           {msg}
         </div>
       )}
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Date de création</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.firstname}</td>
-              <td>{user.lastname}</td>
-              <td>{user.email}</td>
-              <td>{format(new Date(user.createdAt), 'dd/MM/yyyy HH:mm:ss')}</td>
-              <td>
-                {/* Passer toutes les informations via state */}
-                <Link to={`/edit/${user.id}`} state={user}>
-                  <button>Modifier</button>
-                </Link>
-                <button onClick={() => handleDelete(user.id)}>Supprimer</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
     </div>
   );
 };

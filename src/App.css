@@ -27,6 +27,106 @@
 .App-link {
   color: #61dafb;
 }
+/*********/
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+}
+
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  margin: 20px auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 8px;
+}
+
+.btn-green{
+  background-color: #4CAF50;
+}
+
+.btn-red{
+  background-color: #ad2617;
+}
+
+.btn-orange{
+  background-color: #97580c;
+}
+
+.btn-blue{
+  background-color: #3b61e0;
+}
+
+/* Style général du tableau */
+.table-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Style des en-têtes du tableau */
+th {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Style des cellules du tableau */
+td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #dee2e6; 
+}
+
+/* aligner correctement */
+table {
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
 
 @keyframes App-logo-spin {
   from {

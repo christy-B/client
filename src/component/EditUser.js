@@ -31,7 +31,6 @@ const EditUser = () => {
     axios
       .put(`${API_URL}/${user.id}`, formData)
       .then((response) => {
-        console.log(response.data.message);
         setMsg(response.data.message)
         setIsError(false);
       })
@@ -40,7 +39,6 @@ const EditUser = () => {
         if (error.response.data.message) {
             setMsg(error.response.data.message)
         }else{
-            console.error(error.response.data.errors);
             setMsg(error.response.data.errors)
         }
         
@@ -87,10 +85,10 @@ const EditUser = () => {
           onChange={handleInputChange}
         />
         <br />
-        <button type="submit">Enregistrer les modifications</button>
+        <button type="submit" className='btn-green'>Enregistrer les modifications</button>
       </form>
 
-      <div><button onClick={() => navigate('/')}>Retour</button></div>
+      <div><button onClick={() => navigate('/')} className='btn-red'>Retour</button></div>
     </div>
   );
 };
